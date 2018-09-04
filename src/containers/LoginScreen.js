@@ -23,7 +23,7 @@ class LoginScreen extends Component {
         'Content-type': 'application/json'
       }
     }
-    fetch('http://localhost:3000/api/v1/login', postConfig)
+    fetch('http://localhost:3001/api/v1/login', postConfig)
     .then(resp => resp.json())
     .then(data => {
 

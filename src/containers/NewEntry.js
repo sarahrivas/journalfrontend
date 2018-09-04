@@ -15,7 +15,9 @@ class NewEntry extends Component {
   }
 
   handleChange = (event) => {
-
+    this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
   render() {
@@ -24,11 +26,11 @@ class NewEntry extends Component {
         <form onSubmit={this.handleSubmit}>
         <label>
           Title:
-          <input type="text" value={this.state.title} onChange={this.handleChange} />
+          <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
         </label>
         <label>
           Content:
-          <textarea type="text" value={this.state.content} onChange={this.handleChange} />
+          <textarea type="text" name="content" value={this.state.content} onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />
       </form>
