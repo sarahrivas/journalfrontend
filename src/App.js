@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
 import './App.css';
+import { logIn, logOut } from './actions'
 
 class App extends Component {
 
@@ -8,6 +9,9 @@ class App extends Component {
     fetch('http://localhost:3000/api/v1/users', {method:'GET', headers: {Authorization: `Bearer<token>`}})
     .then(resp=>resp.json())
     .then(data=>console.log(data))
+
+    this.props.dispatch(logIn({name:'Marcus', username:'mj'}));
+    this.props.dispatch(logIn({name:'Marcus', username:'mj'}));
   }
 
   newUserPost() {
@@ -29,15 +33,20 @@ class App extends Component {
     .then(console.log)
   }
 
+  handleLogOut = () => {
+    this.props.dispatch(logOut());
+  }
+
   render() {
 
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Time Capsule</h1>
+          <button onClick={this.handleLogOut}>Log Out</button>
         </header>
         <button onClick={this.newUserPost}>Add User</button>
+        <div>{this.props.user.name}</div>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
@@ -46,4 +55,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(
+  mapStateToProps
+)(App);
