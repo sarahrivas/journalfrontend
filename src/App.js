@@ -1,36 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import { logIn, logOut } from './actions'
+import { logIn, logOut } from './actions';
+import { withRouter } from 'react-router';
+import Home from './containers/Home';
+import NewEntry from './containers/NewEntry';
+import LoginScreen from './containers/LoginScreen'
+import { Route } from "react-router-dom";
 
 class App extends Component {
 
   componentDidMount() {
-    fetch('http://localhost:3000/api/v1/users', {method:'GET', headers: {Authorization: `Bearer<token>`}})
-    .then(resp=>resp.json())
-    .then(data=>console.log(data))
+    const token = localStorage.getItem('token');
+    if (token) {
+      const username = localStorage.getItem('username');
+      const name = localStorage.getItem('name');
 
-    this.props.dispatch(logIn({name:'Marcus', username:'mj'}));
-    this.props.dispatch(logIn({name:'Marcus', username:'mj'}));
-  }
-
-  newUserPost() {
-    fetch('http://localhost:3000/api/v1/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        user: {
-          username: 'mimi1',
-          password: 'itme',
-          name: 'Mimi'
-        }
-      })
-    })
-    .then(resp => resp.json())
-    .then(console.log)
+      this.props.dispatch(logIn({ token, username, name }));
+    }
   }
 
   handleLogOut = () => {
@@ -41,15 +28,16 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Time Capsule</h1>
-          <button onClick={this.handleLogOut}>Log Out</button>
-        </header>
-        <button onClick={this.newUserPost}>Add User</button>
-        <div>{this.props.user.name}</div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1 className="App-title">Time Capsule</h1>
+        <button onClick={this.handleLogOut}>Log Out</button>
+        {
+          this.props.user.name ?
+            <div>
+              <Route exact path="/" component={Home} />
+              <Route path="/new-entry" component={NewEntry} />
+            </div>
+            : <LoginScreen />
+        }
       </div>
     );
   }
@@ -59,6 +47,6 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps
-)(App);
+)(App));

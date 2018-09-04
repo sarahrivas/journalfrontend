@@ -26,3 +26,8 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.login-label {
+  display: block;
+  margin-top: 10px;
+}
