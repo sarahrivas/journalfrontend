@@ -21,7 +21,6 @@ class Home extends Component {
   render() {
     return (
       <div className="App">
-        <button onClick={this.newUserPost}>Add User</button>
         <div>{this.props.entries.slice(0,6).map(entry => <div>{entry.title}</div>)}</div>
       </div>
     );

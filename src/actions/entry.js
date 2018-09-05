@@ -1,7 +1,7 @@
 export const submitNewForm = (entry) => {
   return {
     type: 'SUBMIT_NEW_FORM',
-    title: entry.name,
+    title: entry.title,
     content: entry.content
   }
 }

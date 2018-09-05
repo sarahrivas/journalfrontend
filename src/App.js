@@ -6,7 +6,8 @@ import { withRouter } from 'react-router';
 import Home from './containers/Home';
 import NewEntry from './containers/NewEntry';
 import LoginScreen from './containers/LoginScreen'
-import { Route } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Navbar from './components/Navbar';
 
 class App extends Component {
 
@@ -31,6 +32,7 @@ class App extends Component {
       <div className="App">
         <h1 className="App-title">Time Capsule</h1>
         <button onClick={this.handleLogOut}>Log Out</button>
+        <Navbar handleClick={this.handleClick} />
         {
           this.props.user.name ?
             <div>
