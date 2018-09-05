@@ -30,6 +30,7 @@ class LoginScreen extends Component {
       this.props.dispatch(logIn({
         username: data.user.username,
         name: data.user.name,
+        id: data.user.id,
         token: data.jwt
       }));
 

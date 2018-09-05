@@ -4,14 +4,18 @@ const user = (state = {}, action) => {
       return {
         ...state,
         name: action.name,
-        username: action.username
+        username: action.username,
+        id: action.id,
+        token: action.token
       }
 
     case 'LOGOUT':
       return {
         ...state,
         name: action.name,
-        username: action.username
+        username: action.username,
+        id: action.id,
+        token: action.token
       }
     default:
       return state

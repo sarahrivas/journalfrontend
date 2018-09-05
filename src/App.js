@@ -15,8 +15,9 @@ class App extends Component {
     if (token) {
       const username = localStorage.getItem('username');
       const name = localStorage.getItem('name');
+      const id = localStorage.getItem('id');
 
-      this.props.dispatch(logIn({ token, username, name }));
+      this.props.dispatch(logIn({ token, username, name, id }));
     }
   }
 

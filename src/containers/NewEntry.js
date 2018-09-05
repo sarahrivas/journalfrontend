@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { submitNewForm } from '../actions'
 
 
 class NewEntry extends Component {
@@ -12,6 +13,30 @@ class NewEntry extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     // add post for entry
+    const postConfig = {
+      method: 'POST',
+      body: JSON.stringify({
+        entry: {
+          title: this.state.title,
+          content: this.state.content,
+          user_id: this.props.user.id
+        }
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+    fetch('http://localhost:3001/api/v1/entries', postConfig)
+    .then(resp => resp.json())
+    .then(data => {
+
+      this.props.dispatch(submitNewForm({
+        title: data.title,
+        content: data.content
+      }));
+
+    })
   }
 
   handleChange = (event) => {
@@ -40,6 +65,7 @@ class NewEntry extends Component {
 }
 
 const mapStateToProps = state => ({
+  entry: state.entry,
   user: state.user
 })
 

@@ -1,32 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logIn, logOut } from '../actions'
+import { storeAllEntries } from '../actions'
 
 class Home extends Component {
 
   componentDidMount() {
     fetch('http://localhost:3001/api/v1/entries',
-      {method:'GET', headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}}
+      {
+        method:'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
     )
     .then(resp=>resp.json())
-    .then(data=>console.log(data))
+    .then(data=>this.props.dispatch(storeAllEntries(data)))
   }
 
 
   render() {
-
     return (
       <div className="App">
         <button onClick={this.newUserPost}>Add User</button>
-        <div>{this.props.user.name}</div>
+        <div>{this.props.entries.slice(0,6).map(entry => <div>{entry.title}</div>)}</div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user
-})
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    entries: state.entry.entries
+  }
+}
 
 export default connect(
   mapStateToProps
