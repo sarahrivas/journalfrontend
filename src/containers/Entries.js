@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { storeAllEntries } from '../actions'
 
-class Home extends Component {
+class Entries extends Component {
 
   componentDidMount() {
     fetch('http://localhost:3001/api/v1/entries',
@@ -17,11 +17,14 @@ class Home extends Component {
     .then(data=>this.props.dispatch(storeAllEntries(data)))
   }
 
+  handleClick = (event) => {
+    console.log(event)
+  }
 
   render() {
     return (
       <div className="App">
-        <div>{this.props.entries.slice(0,6).map(entry => <div key={entry.id}>{entry.title}</div>)}</div>
+        <div onClick={this.handleClick}>{this.props.entries.map(entry => <div key={entry.id}>{entry.title}</div>)}</div>
       </div>
     );
   }
@@ -36,4 +39,4 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps
-)(Home);
+)(Entries);

@@ -12,7 +12,6 @@ class NewEntry extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    // add post for entry
     const postConfig = {
       method: 'POST',
       body: JSON.stringify({

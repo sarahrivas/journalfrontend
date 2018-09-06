@@ -4,10 +4,12 @@ import './App.css';
 import { logIn, logOut } from './actions';
 import { withRouter } from 'react-router';
 import Home from './containers/Home';
+import Entries from './containers/Entries';
 import NewEntry from './containers/NewEntry';
 import LoginScreen from './containers/LoginScreen'
-import { Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Navbar from './components/Navbar';
+import SingleView from './containers/SingleView';
 
 class App extends Component {
 
@@ -38,6 +40,8 @@ class App extends Component {
             <div>
               <Route exact path="/" component={Home} />
               <Route path="/new-entry" component={NewEntry} />
+              <Route path="/entries" component={Entries} />
+              <Route path="/view/{entry.id}" component={SingleView} />
             </div>
             : <LoginScreen />
         }
