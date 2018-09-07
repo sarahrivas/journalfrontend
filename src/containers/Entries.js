@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { storeAllEntries } from '../actions'
+import { storeAllEntries } from '../actions';
+import { withRouter } from 'react-router-dom';
 
 class Entries extends Component {
 
@@ -17,14 +18,17 @@ class Entries extends Component {
     .then(data=>this.props.dispatch(storeAllEntries(data)))
   }
 
-  handleClick = (event) => {
-    console.log(event)
+  handleClick = (id, event) => {
+    this.props.history.push(`/view/${id}`);
   }
 
   render() {
     return (
       <div className="App">
-        <div onClick={this.handleClick}>{this.props.entries.map(entry => <div key={entry.id}>{entry.title}</div>)}</div>
+        <div>{this.props.entries.map(entry =>
+          <div onClick={(e)=>this.handleClick(entry.id, e)} key={entry.id}>{entry.title}</div>
+        )}
+        </div>
       </div>
     );
   }
@@ -37,6 +41,6 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps
-)(Entries);
+)(Entries));

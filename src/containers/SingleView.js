@@ -4,10 +4,6 @@ import {  } from '../actions'
 
 class SingleView extends Component {
 
-  state = {
-    username: '',
-    password: ''
-  }
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -52,7 +48,7 @@ class SingleView extends Component {
 
     return (
       <div className="single-entry">
-
+        single view
       </div>
     );
   }
