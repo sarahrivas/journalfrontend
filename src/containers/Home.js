@@ -5,7 +5,7 @@ import { storeAllEntries } from '../actions'
 class Home extends Component {
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/entries',
+    fetch('http://localhost:3000/api/v1/entries',
       {
         method:'GET',
         headers: {

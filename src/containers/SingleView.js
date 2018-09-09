@@ -1,61 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {  } from '../actions'
+import { renderSingleEntry } from '../actions'
 
 class SingleView extends Component {
 
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const postConfig = {
-      method: 'POST',
-      body: JSON.stringify({
-        user: {
-          username: this.state.username,
-          password: this.state.password
-        }
-      }),
-      headers:{
-        'Content-type': 'application/json'
-      }
-    }
-    fetch('http://localhost:3001/api/v1/login', postConfig)
-    .then(resp => resp.json())
-    .then(data => {
-
-      this.props.dispatch(({
-        username: data.user.username,
-        name: data.user.name,
-        id: data.user.id,
-        token: data.jwt
-      }));
-
-    })
-  }
-
-  // handleChange = (inputType, event) => {
-  //   this.setState({
-  //     [inputType]: event.target.value
-  //   })
-  // }
-
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
   render() {
 
     return (
       <div className="single-entry">
-        single view
+        {this.props.currentEntry.title}
+        {this.props.currentEntry.content}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  entry: state.entry,
+  currentEntry: state.entry.currentEntry
 })
 
 export default connect(

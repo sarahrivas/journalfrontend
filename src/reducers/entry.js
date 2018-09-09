@@ -1,4 +1,4 @@
-const entry = (state = { entries: []}, action) => {
+const entry = (state = { entries: [], currentEntry:{}}, action) => {
   switch (action.type) {
     case 'SUBMIT_NEW_FORM':
       return {
@@ -15,9 +15,18 @@ const entry = (state = { entries: []}, action) => {
         entries: action.entries
       }
 
-    default:
-      return state
+      case 'RENDER_SINGLE_ENTRY':
+        const matchedEntry = state.entries.find(entry => entry.id === action.id)
+        return {
+          ...state,
+          currentEntry: {
+            title: matchedEntry.title,
+            content: matchedEntry.content
+          }
+        }
+        default:
+        return state
+      }
   }
-}
 
 export default entry;

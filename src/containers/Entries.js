@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { storeAllEntries } from '../actions';
+import { storeAllEntries, renderSingleEntry } from '../actions';
 import { withRouter } from 'react-router-dom';
 
 class Entries extends Component {
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/entries',
+    fetch('http://localhost:3000/api/v1/entries',
       {
         method:'GET',
         headers: {
@@ -19,7 +19,9 @@ class Entries extends Component {
   }
 
   handleClick = (id, event) => {
+    this.props.dispatch(renderSingleEntry(id));
     this.props.history.push(`/view/${id}`);
+
   }
 
   render() {
