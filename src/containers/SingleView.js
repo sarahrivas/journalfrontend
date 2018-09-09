@@ -48,7 +48,8 @@ class SingleView extends Component {
       this.props.dispatch(renderSingleEntry({
         currentEntry: {
           title: data.title,
-          content: data.content
+          content: data.content,
+          id: data.id
         }
       }));
     })

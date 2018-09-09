@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { submitNewForm } from '../actions'
+import { submitNewForm } from '../actions';
+import { withRouter } from 'react-router';
 
 
 class NewEntry extends Component {
@@ -26,15 +27,16 @@ class NewEntry extends Component {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     }
-    fetch('http://localhost:3001/api/v1/entries', postConfig)
+    fetch('http://localhost:3000/api/v1/entries', postConfig)
     .then(resp => resp.json())
     .then(data => {
 
       this.props.dispatch(submitNewForm({
         title: data.title,
-        content: data.content
+        content: data.content,
+        id: data.id
       }));
-
+      this.props.history.push(`/view/${data.id}`)
     })
   }
 
@@ -68,6 +70,6 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps
-)(NewEntry);
+)(NewEntry));
