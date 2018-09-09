@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { renderSingleEntry } from '../actions'
+import { resetEntry, deleteEntry,renderSingleEntry } from '../actions';
+import { withRouter } from 'react-router';
 
 class SingleView extends Component {
 
-  deleteHandler = (id, event) => {
+  deleteHandler = (event) => {
+    console.log(this);
+    const id = this.props.currentEntry.id;
     const deleteUrl = `http://localhost:3000/api/v1/entries/${id}`;
     const deleteConfig= {
       method: 'DELETE',
@@ -14,11 +17,16 @@ class SingleView extends Component {
       }
     }
     fetch(deleteUrl,deleteConfig)
-    .then(resp=>resp.json())
-    .then(data=>this.props.dispatch(renderSingleEntry({})))
+    .then(resp=> resp.json())
+    .then(data=> {
+      this.props.dispatch(deleteEntry( id: data.entryId ));
+      this.props.dispatch(resetEntry());
+      this.props.history.push("/entries")
+    })
   }
 
-  editHandler = (id, event) => {
+  editHandler = (event) => {
+    const id = this.props.currentEntry.id;
     const editUrl = `http://localhost:3000/api/v1/entries/${id}`;
     const editConfig = {
       method:'PATCH',
@@ -60,10 +68,9 @@ class SingleView extends Component {
 }
 
 const mapStateToProps = state => ({
-  entry: state.entry,
   currentEntry: state.entry.currentEntry
 })
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps
-)(SingleView);
+)(SingleView));
