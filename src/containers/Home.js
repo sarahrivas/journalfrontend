@@ -4,24 +4,25 @@ import { storeAllEntries } from '../actions'
 
 class Home extends Component {
 
-  componentDidMount() {
-    fetch('http://localhost:3000/api/v1/entries',
-      {
-        method:'GET',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      }
-    )
-    .then(resp=>resp.json())
-    .then(data=>this.props.dispatch(storeAllEntries(data)))
-  }
+  // componentDidMount() {
+  //   fetch('http://localhost:3000/api/v1/entries',
+  //     {
+  //       method:'GET',
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('token')}`
+  //       }
+  //     }
+  //   )
+  //   .then(resp=>resp.json())
+  //   .then(data=>this.props.dispatch(storeAllEntries(data)))
+  // }
 
 
   render() {
     return (
       <div className="App">
-        <div>{this.props.entries.slice(0,6).map(entry => <div key={entry.id}>{entry.title}</div>)}</div>
+      Getting Started
+      Start taking Notes =>
       </div>
     );
   }
