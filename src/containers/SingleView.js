@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { resetEntry, deleteEntry,renderSingleEntry } from '../actions';
+import { editEntry, resetEntry, deleteEntry,renderSingleEntry } from '../actions';
 import { withRouter } from 'react-router';
 
 class SingleView extends Component {
@@ -27,32 +27,7 @@ class SingleView extends Component {
 
   editHandler = (event) => {
     const id = this.props.currentEntry.id;
-    const editUrl = `http://localhost:3000/api/v1/entries/${id}`;
-    const editConfig = {
-      method:'PATCH',
-      body: JSON.stringify({
-        entry: {
-          title: this.state.title,
-          content: this.state.content,
-          user_id: this.props.user.id
-        }
-      }),
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    }
-    fetch(editUrl, editConfig)
-    .then(resp => resp.json())
-    .then(data => {
-      this.props.dispatch(renderSingleEntry({
-        currentEntry: {
-          title: data.title,
-          content: data.content,
-          id: data.id
-        }
-      }));
-    })
+    this.props.history.push(`/edit/${id}`)
   }
 
   render() {

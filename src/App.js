@@ -10,6 +10,7 @@ import LoginScreen from './containers/LoginScreen'
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Navbar from './components/Navbar';
 import SingleView from './containers/SingleView';
+import EditEntry from './containers/EditEntry';
 import MainEntryView from './containers/MainEntryView';
 
 
@@ -42,6 +43,7 @@ class App extends Component {
             <div>
               <Route exact path="/" component={Home} />
               <Route path="/new-entry" component={NewEntry} />
+              <Route path="/edit/:id" component={EditEntry} />
               <Route path="/entries" render={() => <MainEntryView content={<div>Select an entry</div>} />} />
               <Route path="/view/:id" render={() => <MainEntryView content={<SingleView />} />} />
             </div>

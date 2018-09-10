@@ -27,6 +27,20 @@ const entry = (state = { entries: [], currentEntry:{}}, action) => {
           }
         }
 
+        case 'EDIT_ENTRY':
+          const editedEntries = state.entries.map(entry => {
+            if(entry.id === action.data.id) {
+              return action.data;
+            } else {
+              return entry;
+            }
+          });
+          return {
+            ...state,
+            entries : editedEntries,
+            currentEntry: action.data
+          }
+
         case 'DELETE_ENTRY':
           const remainingEntries = state.entries.filter((entry) => entry.id !== action.id);
           return {

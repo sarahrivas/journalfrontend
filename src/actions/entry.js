@@ -33,3 +33,10 @@ export const resetEntry = () => {
     type: 'RESET_ENTRY'
   };
 };
+
+export const editEntry = (data) => {
+  return {
+    type: 'EDIT_ENTRY',
+    data
+  };
+};
