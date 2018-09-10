@@ -30,7 +30,6 @@ class NewEntry extends Component {
     fetch('http://localhost:3000/api/v1/entries', postConfig)
     .then(resp => resp.json())
     .then(data => {
-
       this.props.dispatch(submitNewForm({
         title: data.title,
         content: data.content,

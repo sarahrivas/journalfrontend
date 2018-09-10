@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+require('typeface-roboto');
+
 
 const store = createStore(
   reducers,

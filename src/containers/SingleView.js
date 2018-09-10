@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { editEntry, resetEntry, deleteEntry,renderSingleEntry } from '../actions';
 import { withRouter } from 'react-router';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 
 class SingleView extends Component {
 
@@ -36,7 +38,7 @@ class SingleView extends Component {
       <div className="single-entry">
         {this.props.currentEntry.title}
         {this.props.currentEntry.content}
-          <button onClick={this.deleteHandler}>Delete</button>
+          <button onClick={this.deleteHandler}><DeleteIcon/></button>
           <button onClick={this.editHandler}>Edit</button>
       </div>
     );
