@@ -11,6 +11,12 @@ class EditEntry extends Component {
     content: this.props.currentEntry.content
   }
 
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     const id = this.props.currentEntry.id;
@@ -19,11 +25,9 @@ class EditEntry extends Component {
     const editConfig = {
       method:'PATCH',
       body: JSON.stringify({
-        currentEntry: {
           title: this.state.title,
           content: this.state.content,
           user_id: this.props.user.id
-        }
       }),
       headers: {
         'Content-type': 'application/json',
@@ -36,12 +40,6 @@ class EditEntry extends Component {
         this.props.dispatch(editEntry(data));
         this.props.history.push(`/view/${data.id}`)
       })
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
   }
 
   render() {
