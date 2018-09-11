@@ -29,16 +29,16 @@ const Navbar = (props) => {
           <IconButton color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="title" color="inherit">
+          <Typography variant="title" color="inherit" align="center">
             <NavLink activeClassName="active" exact to="/">Home</NavLink>
           </Typography>
-          <Typography variant="title" color="inherit">
-            <NavLink activeClassName="active" exact to="/entries">View Your Notes</NavLink>
+          <Typography variant="title" color="inherit" align="center">
+            <NavLink activeClassName="active" exact to="/entries">Recipes</NavLink>
           </Typography>
-          <Typography variant="title" color="inherit">
-            <NavLink activeClassName="active" exact to="/new-entry">Create a New Note</NavLink>
+          <Typography variant="title" color="inherit" align="center">
+            <NavLink activeClassName="active" exact to="/new-entry">Add Recipe</NavLink>
           </Typography>
-          <Button color="inherit" onClick={props.handleClick}>Logout</Button>
+          <Button color="inherit" align="right" onClick={props.handleClick}>Logout</Button>
         </Toolbar>
       </AppBar>
     </Fragment>
