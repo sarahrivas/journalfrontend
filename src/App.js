@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import { logIn, logOut } from './actions';
@@ -12,7 +12,14 @@ import Navbar from './components/Navbar';
 import SingleView from './containers/SingleView';
 import EditEntry from './containers/EditEntry';
 import MainEntryView from './containers/MainEntryView';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  }
+});
 
 class App extends Component {
 
@@ -22,7 +29,6 @@ class App extends Component {
       const username = localStorage.getItem('username');
       const name = localStorage.getItem('name');
       const id = localStorage.getItem('id');
-
       this.props.dispatch(logIn({ token, username, name, id }));
     }
   }
@@ -34,21 +40,23 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
-        <h1 className="App-title">Time Capsule</h1>
-        <button onClick={this.handleLogOut}>Log Out</button>
-        <Navbar handleClick={this.handleClick} />
-        {
-          this.props.user.name ?
-            <div>
-              <Route exact path="/" component={Home} />
-              <Route path="/new-entry" component={NewEntry} />
-              <Route path="/edit/:id" component={EditEntry} />
-              <Route path="/entries" render={() => <MainEntryView content={<div>Select an entry</div>} />} />
-              <Route path="/view/:id" render={() => <MainEntryView content={<SingleView />} />} />
-            </div>
-            : <LoginScreen />
-        }
+      <div className={this.props.classes.root}>
+        <Grid container spacing={8}>
+          <Grid item xs={12}>
+            <Navbar handleClick={this.handleLogOut} />
+          </Grid>
+            {
+              this.props.user.name ?
+                <Fragment>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/new-entry" component={NewEntry} />
+                  <Route path="/edit/:id" component={EditEntry} />
+                  <Route path="/entries" render={() => <MainEntryView content={<div>Select an entry</div>} />} />
+                  <Route path="/view/:id" render={() => <MainEntryView content={<SingleView />} />} />
+                </Fragment>
+                : <LoginScreen />
+            }
+          </Grid>
       </div>
     );
   }
@@ -58,6 +66,6 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default withRouter(connect(
+export default withStyles(styles)(withRouter(connect(
   mapStateToProps
-)(App));
+)(App)));

@@ -1,13 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Entries from './Entries';
+import Grid from '@material-ui/core/Grid';
 
 class MainEntryView extends Component {
   render() {
     return (
-      <div>
-        <Entries />
-        {this.props.content}
-      </div>
+      <Fragment>
+
+         <Grid item xs={12} sm={3}>
+            <Entries />
+          </Grid>
+          <Grid item xs={12} sm={9}>
+            {this.props.content}
+          </Grid>
+
+      </Fragment>
     );
   }
 }

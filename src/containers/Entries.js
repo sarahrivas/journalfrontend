@@ -1,7 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { storeAllEntries, renderSingleEntry } from '../actions';
 import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+
+const styles = theme => ({
+    width: '100%',
+    maxWidth: '360px',
+    backgroundColor: theme.palette.background.paper,
+});
 
 class Entries extends Component {
 
@@ -26,12 +37,14 @@ class Entries extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div>{this.props.entries.map(entry =>
-          <div onClick={(e)=>this.handleClick(entry.id, e)} key={entry.id}>{entry.title}</div>
+      <Fragment>
+        <List component="nav">{this.props.entries.map(entry =>
+          <ListItem button onClick={(e)=>this.handleClick(entry.id, e)} key={entry.id}>
+          <ListItemText primary={entry.title}/>
+          </ListItem>
         )}
-        </div>
-      </div>
+        </List>
+      </Fragment>
     );
   }
 }
