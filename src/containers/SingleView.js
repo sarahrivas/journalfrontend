@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { editEntry, resetEntry, deleteEntry,renderSingleEntry, storeAllEntries } from '../actions';
+import { saveEntry, editEntry, resetEntry, deleteEntry,renderSingleEntry, storeAllEntries } from '../actions';
 import { withRouter } from 'react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
@@ -48,6 +48,9 @@ const styles = theme => ({
   avatar: {
     backgroundColor: red[500],
   },
+  contentArea: {
+    'margin-bottom': '12px'
+  }
 });
 
 class SingleView extends Component {
@@ -62,32 +65,52 @@ class SingleView extends Component {
   };
 
   handleChange = (event) => {
-    this.props.dispatch(editEntry({ [event.target.name]: event.target.value })); 
+    this.props.dispatch(editEntry({ [event.target.name]: event.target.value }));
   }
 
   deleteHandler = (event) => {
-    console.log(this);
-    const id = this.props.currentEntry.id;
-    const deleteUrl = `http://localhost:3000/api/v1/entries/${id}`;
-    const deleteConfig= {
-      method: 'DELETE',
-      headers: {
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`
+    if (window.confirm(' Are you sure you want to delete this recipe?')) {
+      const id = this.props.currentEntry.id;
+      const deleteUrl = `http://localhost:3000/api/v1/entries/${id}`;
+      const deleteConfig= {
+        method: 'DELETE',
+        headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       }
+      fetch(deleteUrl,deleteConfig)
+      .then(resp=> resp.json())
+      .then(data=> {
+        this.props.dispatch(deleteEntry( id: data.entryId ));
+        this.props.dispatch(resetEntry());
+        this.props.history.push("/entries")
+      })
     }
-    fetch(deleteUrl,deleteConfig)
-    .then(resp=> resp.json())
-    .then(data=> {
-      this.props.dispatch(deleteEntry( id: data.entryId ));
-      this.props.dispatch(resetEntry());
-      this.props.history.push("/entries")
-    })
   }
 
-  editHandler = (event) => {
+  handleSave = (event) => {
+    event.preventDefault();
     const id = this.props.currentEntry.id;
-    this.props.history.push(`/edit/${id}`)
+    const editUrl = `http://localhost:3000/api/v1/entries/${id}`;
+
+    const editConfig = {
+      method:'PATCH',
+      body: JSON.stringify({
+          title: this.props.currentEntry.title,
+          content: this.props.currentEntry.content,
+          user_id: this.props.user.id
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+      fetch(editUrl, editConfig)
+      .then(resp => resp.json())
+      .then(data => {
+        this.props.dispatch(saveEntry(data));
+      })
   }
 
   render() {
@@ -109,7 +132,12 @@ class SingleView extends Component {
               <MoreVertIcon />
             </IconButton>
           }
-          title={this.props.currentEntry.title}
+          title={<TextField
+            id="text-field-controlled"
+            value={this.props.currentEntry.title}
+            onChange={this.handleChange}
+            name="title"
+          />}
           subheader="add date"
         />
         <CardMedia
@@ -139,7 +167,7 @@ class SingleView extends Component {
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph variant="body2">
+
               <TextField
                 id="text-field-controlled"
                 multiline
@@ -148,11 +176,12 @@ class SingleView extends Component {
                 autoFocus
                 onChange={this.handleChange}
                 name="content"
+                className={this.props.classes.contentArea}
               />
-            </Typography>
 
-            <button onClick={this.deleteHandler}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
-            <button onClick={this.editHandler}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            <button onClick={this.handleSave}><i class="material-icons">save</i></button>
+            <button onClick={this.deleteHandler}><i class="material-icons">delete</i></button>
+
 
           </CardContent>
         </Collapse>
@@ -163,7 +192,8 @@ class SingleView extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentEntry: state.entry.currentEntry
+  currentEntry: state.entry.currentEntry,
+  user: state.user
 })
 
 export default withStyles(styles)(withRouter(connect(

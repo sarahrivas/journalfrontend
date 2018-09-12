@@ -45,8 +45,6 @@ class MainEntryView extends Component {
   }
 }
 
-const mapStateToProps = () => {};
 
-export default withRouter(connect(
-  mapStateToProps
-)(MainEntryView));
+
+export default withRouter(connect()(MainEntryView));

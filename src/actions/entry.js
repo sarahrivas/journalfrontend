@@ -40,3 +40,9 @@ export const editEntry = (data) => {
     data
   };
 };
+
+export const saveEntry = () => {
+  return {
+    type: 'SAVE_ENTRY'
+  };
+};

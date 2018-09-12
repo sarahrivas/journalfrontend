@@ -29,19 +29,23 @@ const entry = (state = { entries: [], currentEntry:{}}, action) => {
         }
 
         case 'EDIT_ENTRY':
-          // let editedObject;
-          // const editedEntries = state.entries.map(entry => {
-          //   if(entry.id === state.currentEntry.id) {
-          //     editedObject = { ...entry, ...action.data };
-          //     return editedObject;
-          //   } else {
-          //     return entry;
-          //   }
-          // });
           return {
             ...state,
             currentEntry: { ...state.currentEntry, ...action.data }
           }
+
+          case 'SAVE_ENTRY':
+            const editedEntries = state.entries.map(entry => {
+              if(entry.id === state.currentEntry.id) {
+                return state.currentEntry;
+              } else {
+                return entry;
+              }
+            });
+            return {
+              ...state,
+              entries: editedEntries
+            }
 
         case 'DELETE_ENTRY':
           const remainingEntries = state.entries.filter((entry) => entry.id !== action.id);
