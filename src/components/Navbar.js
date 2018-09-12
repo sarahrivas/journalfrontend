@@ -99,7 +99,7 @@ const Navbar = (props) => {
     <Fragment>
       <AppBar position="static" color="default">
         <Toolbar>
-            <Typography className={props.classes.title} variant="display3" noWrap>iMunch</Typography>
+            <Typography className={props.classes.title} variant="display3" noWrap>iMunch-a-lot</Typography>
             <NavLink activeClassName="active" exact to="/">
               <Typography  variant="title" noWrap>Home</Typography>
             </NavLink>
