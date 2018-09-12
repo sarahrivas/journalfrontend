@@ -18,6 +18,7 @@ const entry = (state = { entries: [], currentEntry:{}}, action) => {
 
       case 'RENDER_SINGLE_ENTRY':
         const matchedEntry = state.entries.find(entry => entry.id === action.id)
+
         return {
           ...state,
           currentEntry: {
@@ -28,17 +29,18 @@ const entry = (state = { entries: [], currentEntry:{}}, action) => {
         }
 
         case 'EDIT_ENTRY':
-          const editedEntries = state.entries.map(entry => {
-            if(entry.id === action.data.id) {
-              return action.data;
-            } else {
-              return entry;
-            }
-          });
+          // let editedObject;
+          // const editedEntries = state.entries.map(entry => {
+          //   if(entry.id === state.currentEntry.id) {
+          //     editedObject = { ...entry, ...action.data };
+          //     return editedObject;
+          //   } else {
+          //     return entry;
+          //   }
+          // });
           return {
             ...state,
-            entries : editedEntries,
-            currentEntry: action.data
+            currentEntry: { ...state.currentEntry, ...action.data }
           }
 
         case 'DELETE_ENTRY':

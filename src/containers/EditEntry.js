@@ -11,11 +11,7 @@ class EditEntry extends Component {
     content: this.props.currentEntry.content
   }
 
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
+
 
   handleSubmit = (event) => {
     event.preventDefault();
