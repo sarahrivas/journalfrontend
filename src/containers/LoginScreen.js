@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logIn, logOut } from '../actions'
+import Grid from '@material-ui/core/Grid';
+
 
 class LoginScreen extends Component {
 
@@ -50,19 +52,21 @@ class LoginScreen extends Component {
   render() {
 
     return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-        <label className="login-label">
-          Username:
-          <input type="text" name= "username" value={this.state.username} onChange={(event)=>this.handleChange(event)} />
-        </label>
-        <label className="login-label">
-          Password:
-          <input type="password" name="password" value={this.state.password} onChange={(event) => this.handleChange(event)} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-      </div>
+      <Grid item xs={12}>
+        <div className="Login">
+          <form onSubmit={this.handleSubmit}>
+          <label className="login-label">
+            Username:
+            <input type="text" name= "username" value={this.state.username} onChange={(event)=>this.handleChange(event)} />
+          </label>
+          <label className="login-label">
+            Password:
+            <input type="password" name="password" value={this.state.password} onChange={(event) => this.handleChange(event)} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        </div>
+      </Grid>
     );
   }
 }

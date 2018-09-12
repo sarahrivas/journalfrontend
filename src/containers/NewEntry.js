@@ -1,8 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { submitNewForm } from '../actions';
 import { withRouter } from 'react-router';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
+
+
+const styles = theme => ({
+  contentArea: {
+    'margin-bottom': '12px'
+  },
+  button: {
+    display: 'block',
+    float: 'right',
+    'margin-right': '5%',
+    'margin-bottom': '3%'
+  },
+  recipeCard: {
+    width: '100%'
+  }
+});
 
 class NewEntry extends Component {
 
@@ -47,19 +70,37 @@ class NewEntry extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-        <label>
-          Title:
-          <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
-        </label>
-        <label>
-          Content:
-          <textarea type="text" name="content" value={this.state.content} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-      </div>
+      <Grid item xs={12}>
+        <Card className={this.props.classes.recipeCard}>
+          <Typography variant="title" noWrap>Add a new recipe</Typography>
+          <form onSubmit={this.handleSubmit}>
+            <CardHeader
+              title={
+                <TextField
+                  id="text-field-controlled"
+                  value={this.state.title}
+                  onChange={this.handleChange}
+                  name="title"
+                  label="Recipe Title"
+              />}
+            />
+            <CardContent>
+            <TextField
+              label="Recipe Details"
+              id="text-field-controlled"
+              multiline
+              value={this.state.content}
+              autoFocus
+              onChange={this.handleChange}
+              name="content"
+              className={this.props.classes.contentArea}
+              fullWidth
+            />
+            </CardContent>
+            <input type="submit" value="Submit" className={this.props.classes.button} />
+        </form>
+        </Card>
+      </Grid>
     );
   }
 }
@@ -69,6 +110,6 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default withRouter(connect(
+export default withStyles(styles)(withRouter(connect(
   mapStateToProps
-)(NewEntry));
+)(NewEntry)));
