@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { saveEntry, editEntry, resetEntry, deleteEntry,renderSingleEntry, storeAllEntries } from '../actions';
 import { withRouter } from 'react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
@@ -20,6 +21,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   card: {
@@ -124,7 +126,7 @@ class SingleView extends Component {
         <CardHeader
           avatar={
             <Avatar aria-label="Recipe">
-              <img src="https://img.clipartxtras.com/e1f272d5006b508abb031b710400ed6a_chef-logo-clip-art-royalty-free-gograph-chef-hat-clipart-free_170-169.jpeg"/>
+              {this.props.user.name.slice(0,1)}
             </Avatar>
           }
           action={
@@ -138,17 +140,17 @@ class SingleView extends Component {
             onChange={this.handleChange}
             name="title"
           />}
-          subheader="add date"
         />
         <CardMedia
-          image="/static/images/cards/paella.jpg"
+          image="https://www.flickr.com/photos/pioneerwoman/15553832768"
           title="Contemplative Reptile"
         />
         <CardContent>
-          <Typography component="p">
-            This impressive paella is a perfect party dish and a fun meal to cook together with your
-            guests. Add 1 cup of frozen peas along with the mussels, if you like.
-          </Typography>
+        <Typography component="p">
+          This impressive paella is a perfect party dish and a fun meal to cook together with your
+          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+        </Typography>
+
         </CardContent>
         <CardActions disableActionSpacing>
           <IconButton aria-label="Add to favorites">
@@ -179,8 +181,16 @@ class SingleView extends Component {
                 className={this.props.classes.contentArea}
               />
 
-            <button onClick={this.handleSave}><i class="material-icons">save</i></button>
-            <button onClick={this.deleteHandler}><i class="material-icons">delete</i></button>
+            <Tooltip title="Save">
+              <IconButton aria-label="Save" onClick={this.handleSave}>
+                <SaveIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete">
+              <IconButton aria-label="Delete" onClick={this.deleteHandler}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
 
 
           </CardContent>
