@@ -59,23 +59,27 @@ class SignUp extends Component {
 
     return (
       <Grid item xs={12}>
+      <Card>
         <div className="Login">
           <form onSubmit={this.handleSubmit}>
-          <label className="login-label">
+          <label className="Login">
             Username:
             <input type="text" name= "username" value={this.state.username} onChange={(event)=>this.handleChange(event)} />
           </label>
-          <label className="login-label">
+          <label className="Login">
             Name:
             <input type="text" name= "name" value={this.state.name} onChange={(event)=>this.handleChange(event)} />
           </label>
-          <label className="login-label">
+          <label className="Login">
             Password:
             <input type="password" name="password" value={this.state.password} onChange={(event) => this.handleChange(event)} />
           </label>
+          <div className="Login">
           <input type="submit" value="Submit" />
+          </div>
         </form>
         </div>
+        </Card>
       </Grid>
     );
   }

@@ -78,7 +78,6 @@ class App extends Component {
                     <MainEntryView content={<SingleView />} />)} />
                 <Route path="/login" render={() => <LoginScreen />} />
                 <Route path="/sign-up" render={() => <SignUp />} />
-            }
             </Fragment>
           </Grid>
       </div>

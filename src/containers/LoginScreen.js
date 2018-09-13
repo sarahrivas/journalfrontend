@@ -14,7 +14,8 @@ import { withRouter } from 'react-router';
 
 const styles = {
   card: {
-    minWidth: 275,
+    maxWidth: 275,
+    height: 20,
   },
   bullet: {
     display: 'inline-block',
@@ -86,6 +87,7 @@ class LoginScreen extends Component {
 
     return (
       <Grid item xs={12}>
+      <Card>
         <div className="Login">
           <form onSubmit={this.handleSubmit}>
           <label className="login-label">
@@ -96,10 +98,13 @@ class LoginScreen extends Component {
             Password:
             <input type="password" name="password" value={this.state.password} onChange={(event) => this.handleChange(event)} />
           </label>
-          <input type="submit" value="Submit" />
-          <button onClick={this.handleSignup}>New user? Sign up!</button>
+          <div className="Login">
+            <input type="submit" value="Submit" />
+            <button onClick={this.handleSignup}>New user? Sign up!</button>
+          </div>
         </form>
         </div>
+        </Card>
       </Grid>
     );
   }

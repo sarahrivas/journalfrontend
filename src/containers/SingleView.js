@@ -150,16 +150,13 @@ class SingleView extends Component {
         />
         <CardContent>
         <Typography component="p">
-          <img src="https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg" />
+          <img src="https://pioneerwoman.files.wordpress.com/2016/03/dsc_1187.jpg?w=780&h=519" />
         </Typography>
 
         </CardContent>
         <CardActions disableActionSpacing>
           <IconButton aria-label="Add to favorites" onClick={this.handleLike}>
               <FavoriteIcon className={this.props.currentEntry.liked && this.props.classes.liked}/>
-          </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon />
           </IconButton>
           <IconButton
             onClick={this.handleExpandClick}
@@ -194,8 +191,6 @@ class SingleView extends Component {
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
-
-
           </CardContent>
         </Collapse>
       </Card>
