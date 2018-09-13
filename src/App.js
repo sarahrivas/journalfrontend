@@ -14,6 +14,7 @@ import EditEntry from './containers/EditEntry';
 import MainEntryView from './containers/MainEntryView';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
@@ -51,7 +52,9 @@ class App extends Component {
                   <Route exact path="/" component={Home} />
                   <Route path="/new-entry" component={NewEntry} />
                   <Route path="/edit/:id" component={EditEntry} />
-                  <Route path="/entries" render={() => <MainEntryView content={<div>Select an entry</div>} />} />
+                  <Route path="/entries" render={() => <MainEntryView content={ <Typography variant="headline" gutterBottom>
+                    Select an entry
+                    </Typography>} />} />
                   <Route path="/view/:id" render={() => <MainEntryView content={<SingleView />} />} />
                 </Fragment>
                 : <LoginScreen />
