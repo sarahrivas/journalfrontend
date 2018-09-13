@@ -14,20 +14,22 @@ const styles = theme => ({
 });
 
 class Entries extends Component {
+
   handleClick = (id, event) => {
     this.props.onEntryView(id);
   }
 
+
   render() {
     return (
-      <Fragment>
-        <List component="nav">{this.props.entries.map(entry =>
-          <ListItem button onClick={(e)=>this.handleClick(entry.id, e)} key={entry.id}>
-          <ListItemText primary={entry.title}/>
+        <List component="nav">{this.props.entries.map(entry => <li key={entry.id}>
+          <ListItem selected={this.props.currentEntry.id === entry.id} button onClick={(e)=>this.handleClick(entry.id, e)} key={entry.id}>
+            <ListItemText primary={entry.title} secondary={entry.created_at.slice(0,10)}/>
           </ListItem>
+          <Divider light />
+          </li>
         )}
         </List>
-      </Fragment>
     );
   }
 }
@@ -35,7 +37,8 @@ class Entries extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    entries: state.entry.entries
+    entries: state.entry.entries,
+    currentEntry: state.entry.currentEntry
   }
 }
 

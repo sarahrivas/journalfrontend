@@ -36,6 +36,7 @@ class App extends Component {
 
   handleLogOut = () => {
     this.props.dispatch(logOut());
+    this.props.history.push('/')
   }
 
   render() {

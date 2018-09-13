@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { saveEntry, editEntry, resetEntry, deleteEntry,renderSingleEntry, storeAllEntries } from '../actions';
+import { saveEntry, editEntry, resetEntry, deleteEntry,renderSingleEntry, storeAllEntries, likedEntry } from '../actions';
 import { withRouter } from 'react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
@@ -52,13 +52,16 @@ const styles = theme => ({
   },
   contentArea: {
     'margin-bottom': '12px'
+  },
+  liked: {
+    color: 'red',
   }
 });
 
 class SingleView extends Component {
 
     state = {
-      expanded: false
+      expanded: false,
     };
 
 
@@ -68,6 +71,10 @@ class SingleView extends Component {
 
   handleChange = (event) => {
     this.props.dispatch(editEntry({ [event.target.name]: event.target.value }));
+  }
+
+  handleLike= () => {
+    this.props.dispatch(likedEntry())
   }
 
   deleteHandler = (event) => {
@@ -129,11 +136,7 @@ class SingleView extends Component {
               {this.props.user.name.slice(0,1)}
             </Avatar>
           }
-          action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          }
+
           title={<TextField
             id="text-field-controlled"
             value={this.props.currentEntry.title}
@@ -143,18 +146,17 @@ class SingleView extends Component {
         />
         <CardMedia
           image="https://www.flickr.com/photos/pioneerwoman/15553832768"
-          title="Contemplative Reptile"
+          title="food"
         />
         <CardContent>
         <Typography component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+          <img src="https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg" />
         </Typography>
 
         </CardContent>
         <CardActions disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
+          <IconButton aria-label="Add to favorites" onClick={this.handleLike}>
+              <FavoriteIcon className={this.props.currentEntry.liked && this.props.classes.liked}/>
           </IconButton>
           <IconButton aria-label="Share">
             <ShareIcon />
@@ -180,6 +182,7 @@ class SingleView extends Component {
                 name="content"
                 className={this.props.classes.contentArea}
               />
+
 
             <Tooltip title="Save">
               <IconButton aria-label="Save" onClick={this.handleSave}>

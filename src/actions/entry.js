@@ -46,3 +46,9 @@ export const saveEntry = () => {
     type: 'SAVE_ENTRY'
   };
 };
+
+export const likedEntry = () => {
+  return {
+    type: 'LIKED_ENTRY',
+  };
+};
