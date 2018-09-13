@@ -7,6 +7,7 @@ import Home from './containers/Home';
 import Entries from './containers/Entries';
 import NewEntry from './containers/NewEntry';
 import LoginScreen from './containers/LoginScreen'
+import SignUp from './containers/SignUp'
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Navbar from './components/Navbar';
 import SingleView from './containers/SingleView';
@@ -31,6 +32,7 @@ class App extends Component {
       const name = localStorage.getItem('name');
       const id = localStorage.getItem('id');
       this.props.dispatch(logIn({ token, username, name, id }));
+      this.props.history.push('/')
     }
   }
 
@@ -41,25 +43,43 @@ class App extends Component {
 
   render() {
 
+    const loggedIn = this.props.user.name;
+    const redirectToLogin = (component) => {
+      return () => (
+        !loggedIn ? (
+          <Redirect to="/login"/>
+        ) : (
+          component
+        )
+      )
+    };
+
     return (
       <div className={this.props.classes.root}>
         <Grid container spacing={8}>
           <Grid item xs={12}>
             <Navbar handleClick={this.handleLogOut} />
           </Grid>
-            {
-              this.props.user.name ?
-                <Fragment>
-                  <Route exact path="/" component={Home} />
-                  <Route path="/new-entry" component={NewEntry} />
-                  <Route path="/edit/:id" component={EditEntry} />
-                  <Route path="/entries" render={() => <MainEntryView content={ <Typography variant="headline" gutterBottom>
-                    Select an entry
-                    </Typography>} />} />
-                  <Route path="/view/:id" render={() => <MainEntryView content={<SingleView />} />} />
-                </Fragment>
-                : <LoginScreen />
+            <Fragment>
+                <Route exact path="/"
+                  render={redirectToLogin(<Home />)}
+                />
+                <Route path="/new-entry" render={redirectToLogin(<NewEntry
+                   />)} />
+                <Route path="/edit/:id" render={redirectToLogin(<EditEntry />)} />
+                <Route path="/entries" render={
+                  redirectToLogin(
+                    <MainEntryView content={
+                      <Typography variant="headline" gutterBottom>
+                  Select an entry
+                  </Typography>} />)} />
+                <Route path="/view/:id" render={
+                  redirectToLogin(
+                    <MainEntryView content={<SingleView />} />)} />
+                <Route path="/login" render={() => <LoginScreen />} />
+                <Route path="/sign-up" render={() => <SignUp />} />
             }
+            </Fragment>
           </Grid>
       </div>
     );

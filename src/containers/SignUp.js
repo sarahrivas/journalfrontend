@@ -11,47 +11,31 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router';
 
-
-const styles = {
-  card: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    marginBottom: 16,
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-};
-
-class LoginScreen extends Component {
+class SignUp extends Component {
 
   state = {
     username: '',
-    password: ''
+    password: '',
+    name: ''
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
+
     const postConfig = {
       method: 'POST',
       body: JSON.stringify({
         user: {
           username: this.state.username,
-          password: this.state.password
+          password: this.state.password,
+          name: this.state.name
         }
       }),
       headers:{
         'Content-type': 'application/json'
       }
     }
-    fetch('http://localhost:3000/api/v1/login', postConfig)
+    fetch('http://localhost:3000/api/v1/users', postConfig)
     .then(resp => resp.json())
     .then(data => {
 
@@ -66,22 +50,11 @@ class LoginScreen extends Component {
 
   }
 
-  // handleChange = (inputType, event) => {
-  //   this.setState({
-  //     [inputType]: event.target.value
-  //   })
-  // }
-
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
-
-  handleSignup = (event) => {
-    this.props.history.push('/sign-up');
-  }
-
   render() {
 
     return (
@@ -93,11 +66,14 @@ class LoginScreen extends Component {
             <input type="text" name= "username" value={this.state.username} onChange={(event)=>this.handleChange(event)} />
           </label>
           <label className="login-label">
+            Name:
+            <input type="text" name= "name" value={this.state.name} onChange={(event)=>this.handleChange(event)} />
+          </label>
+          <label className="login-label">
             Password:
             <input type="password" name="password" value={this.state.password} onChange={(event) => this.handleChange(event)} />
           </label>
           <input type="submit" value="Submit" />
-          <button onClick={this.handleSignup}>New user? Sign up!</button>
         </form>
         </div>
       </Grid>
@@ -105,10 +81,4 @@ class LoginScreen extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user
-})
-
-export default withRouter(connect(
-  mapStateToProps
-)(LoginScreen));
+export default withRouter(connect()(SignUp));
