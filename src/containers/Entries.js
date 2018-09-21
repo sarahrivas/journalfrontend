@@ -24,7 +24,7 @@ class Entries extends Component {
     return (
         <List component="nav">{this.props.entries.map(entry => <li key={entry.id}>
           <ListItem selected={this.props.currentEntry.id === entry.id} button onClick={(e)=>this.handleClick(entry.id, e)} key={entry.id}>
-            <ListItemText primary={entry.title} secondary={entry.created_at.slice(0,10)}/>
+            <ListItemText primary={entry.title}/>
           </ListItem>
           <Divider light />
           </li>

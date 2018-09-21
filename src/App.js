@@ -71,7 +71,7 @@ class App extends Component {
                   redirectToLogin(
                     <MainEntryView content={
                       <Typography variant="headline" gutterBottom>
-                  Select an entry
+                  Choose a recipe and get started!
                   </Typography>} />)} />
                 <Route path="/view/:id" render={
                   redirectToLogin(
