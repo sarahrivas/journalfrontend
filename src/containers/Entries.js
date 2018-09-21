@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import SearchBar from '../components/SearchBar';
 
 const styles = theme => ({
     width: '100%',
@@ -22,6 +23,8 @@ class Entries extends Component {
 
   render() {
     return (
+        <Fragment>
+        <SearchBar />
         <List component="nav">{this.props.entries.map(entry => <li key={entry.id}>
           <ListItem selected={this.props.currentEntry.id === entry.id} button onClick={(e)=>this.handleClick(entry.id, e)} key={entry.id}>
             <ListItemText primary={entry.title}/>
@@ -30,6 +33,7 @@ class Entries extends Component {
           </li>
         )}
         </List>
+        </Fragment>
     );
   }
 }
