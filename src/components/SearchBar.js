@@ -49,23 +49,39 @@ const styles = theme => ({
   },
 });
 
-const SearchBar = (props) => {
+class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialState: "Search…",
+      currentInput: " ",
+    }
+  }
 
-  return (
-    <div className={props.classes.search}>
-    <div className={props.classes.searchIcon}>
-              <SearchIcon />
-            </div>
-    <Input
-            placeholder="Search…"
-            disableUnderline
-            classes={{
-              root: props.classes.inputRoot,
-              input: props.classes.inputInput,
-            }}
-          />
-    </div>
-  )
+  searchBarHandler = (event) => {
+    this.setState({currentInput:event.target.value})
+  }
+
+  render() {
+
+    const filteredEntries = this.props.entries.filter(entry => entry.toLowerCase().includes(this.state.currentInput.toLowerCase()))
+
+    return (
+      <div className={this.props.classes.search}>
+      <div className={this.props.classes.searchIcon}>
+                <SearchIcon />
+              </div>
+      <Input onChange={this.searchBarHandler} value={this.state.currentInput}
+              placeholder="Search…"
+              disableUnderline
+              classes={{
+                root: this.props.classes.inputRoot,
+                input: this.props.classes.inputInput,
+              }}
+            />
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state) => {

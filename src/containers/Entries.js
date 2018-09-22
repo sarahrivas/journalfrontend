@@ -22,6 +22,8 @@ class Entries extends Component {
 
 
   render() {
+
+
     return (
         <Fragment>
         <SearchBar />
