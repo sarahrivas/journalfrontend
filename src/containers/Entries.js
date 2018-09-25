@@ -16,6 +16,14 @@ const styles = theme => ({
 
 class Entries extends Component {
 
+  state = {
+    currentInput: "",
+  }
+
+  searchBarHandler = (event) => {
+    this.setState({currentInput:event.target.value})
+  }
+
   handleClick = (id, event) => {
     this.props.onEntryView(id);
   }
@@ -23,11 +31,14 @@ class Entries extends Component {
 
   render() {
 
+    const filteredEntries = this.props.entries.filter(
+      entry => entry.title.toLowerCase().includes(this.state.currentInput.toLowerCase())
+    );
 
     return (
         <Fragment>
-        <SearchBar />
-        <List component="nav">{this.props.entries.map(entry => <li key={entry.id}>
+        <SearchBar searchBarHandler={this.searchBarHandler} currentInput={this.state.currentInput}/>
+        <List component="nav">{filteredEntries.map(entry => <li key={entry.id}>
           <ListItem selected={this.props.currentEntry.id === entry.id} button onClick={(e)=>this.handleClick(entry.id, e)} key={entry.id}>
             <ListItemText primary={entry.title}/>
           </ListItem>
