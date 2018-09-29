@@ -31,32 +31,44 @@ class NewEntry extends Component {
 
   state = {
     title: '',
-    content: ''
+    content: '',
+    image: null,
+    imageURL: null
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const postConfig = {
+    const data = new FormData();
+    data.append("title", this.state.title);
+    data.append("content", this.state.content);
+    data.append("image", this.state.image);
+
+    // const postConfig = {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     entry: {
+    //       title: this.state.title,
+    //       content: this.state.content,
+    //       user_id: this.props.user.id
+    //     }
+    //   }),
+    //   headers: {
+    //     'Content-type': 'application/json',
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`
+    //   }
+    // }
+
+    fetch('http://localhost:3000/api/v1/entries', {
       method: 'POST',
-      body: JSON.stringify({
-        entry: {
-          title: this.state.title,
-          content: this.state.content,
-          user_id: this.props.user.id
-        }
-      }),
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    }
-    fetch('http://localhost:3000/api/v1/entries', postConfig)
+      body: data,
+    })
     .then(resp => resp.json())
     .then(data => {
       this.props.dispatch(submitNewForm({
         title: data.title,
         content: data.content,
-        id: data.id
+        id: data.id,
+        image: data.image
       }));
       this.props.history.push(`/view/${data.id}`)
     })
@@ -65,6 +77,12 @@ class NewEntry extends Component {
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
+    })
+  }
+
+  handleFileUpload = event => {
+    this.setState({
+      image: event.target.files[0]
     })
   }
 
