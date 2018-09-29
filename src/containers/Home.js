@@ -38,7 +38,7 @@ class Home extends Component {
        {
          img: "http://www.blurb.com/blog/wp-content/uploads/2017/10/201802_CookbookTips_02-Layouts.jpg",
          title: 'Browse your recipes',
-         featured: true,
+         featured: true
        },
        {
          img: "https://livekindlyproduction-8u6efaq1lwo6x9a.stackpathdns.com/wp-content/uploads/2018/01/cookbook-1-1280x640.jpg",
