@@ -6,7 +6,8 @@ const entry = (state = { entries: [], currentEntry:{}}, action) => {
         currentEntry: {
           title: action.title,
           content: action.content,
-          id: action.id
+          id: action.id,
+          image: action.image
         }
       }
 
@@ -25,6 +26,7 @@ const entry = (state = { entries: [], currentEntry:{}}, action) => {
           title: matchedEntry.title,
           content: matchedEntry.content,
           id: matchedEntry.id,
+          image: matchedEntry.image,
           liked: false
         }
       }
