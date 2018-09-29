@@ -57,7 +57,6 @@ class NewEntry extends Component {
     //     Authorization: `Bearer ${localStorage.getItem('token')}`
     //   }
     // }
-
     fetch('http://localhost:3000/api/v1/entries', {
       method: 'POST',
       body: data,
@@ -71,7 +70,7 @@ class NewEntry extends Component {
         image: data.image
       }));
       this.props.history.push(`/view/${data.id}`)
-    })
+    }, this.setState({imageURL: data.url}))
   }
 
   handleChange = (event) => {
@@ -115,8 +114,10 @@ class NewEntry extends Component {
               fullWidth
             />
             </CardContent>
+            <input type="file" onChange={this.handleFileUpload} />
             <input type="submit" value="Submit" className={this.props.classes.button} />
         </form>
+        {!!this.state.imageURL ? <img src={this.state.imageURL} alt="img"/> : null}
         </Card>
       </Grid>
     );
