@@ -42,6 +42,7 @@ class NewEntry extends Component {
     data.append("title", this.state.title);
     data.append("content", this.state.content);
     data.append("image", this.state.image);
+    data.append("user_id", this.props.user.id);
 
     // const postConfig = {
     //   method: 'POST',
@@ -59,7 +60,10 @@ class NewEntry extends Component {
     // }
     fetch('http://localhost:3000/api/v1/entries', {
       method: 'POST',
-      body: data,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      body: data
     })
     .then(resp => resp.json())
     .then(data => {
