@@ -37,34 +37,33 @@ class Home extends Component {
     tileData : [
        {
          img: "http://www.blurb.com/blog/wp-content/uploads/2017/10/201802_CookbookTips_02-Layouts.jpg",
-         title: 'Browse your recipes',
-         featured: true
+        // title: 'Browse your recipes',
+        // featured: true
        },
        {
          img: "https://livekindlyproduction-8u6efaq1lwo6x9a.stackpathdns.com/wp-content/uploads/2018/01/cookbook-1-1280x640.jpg",
-         title: 'Add a new recipe',
-         featured: true,
+         //title: 'Add a new recipe',
+         //featured: true,
        },
        {
          img: "https://144f2a3a2f948f23fc61-ca525f0a2beaec3e91ca498facd51f15.ssl.cf3.rackcdn.com/uploads/food_portal_data/articles/article/hero_article_image/474/compressed_letterbox_RESIZEsmashedchickpeas.jpg",
-         title: 'Featured recipe',
-         featured: true,
+         //title: 'Featured recipe',
+         //featured: true,
        },
        {
          img: "https://ksr-ugc.imgix.net/assets/019/059/828/35a89f9105c54bb0bdbe597b3cb1dca6_original.jpg?w=639&fit=max&v=1509778957&auto=format&q=92&s=1ed3db275f21fcce527c63c577c41550",
-         title: 'Featured recipe',
-         featured: true,
+         //title: 'Featured recipe',
+         //featured: true,
        },
        {
          img: "https://lexiscleankitchen.com/wp-content/uploads/2016/04/LCK-Cookbook-Thai-BBQ-Salmon.jpg",
-         title: 'Featured recipe',
-         featured: true,
+         //title: 'Featured recipe',
+         //featured: true,
        },
        {
          img: "https://www.uncommongoods.com/images/items/23600/23696_1_640px.jpg",
-         title: 'Featured recipe',
-         author: 'author',
-         featured: true,
+         //title: 'Featured recipe',
+         //featured: true,
        }
      ]
   }
@@ -75,9 +74,6 @@ class Home extends Component {
         {this.state.tileData.map(tile => (
           <GridListTile key={tile.img}>
             <img src={tile.img} alt={tile.title} />
-            <GridListTileBar
-              title={tile.title}
-            />
           </GridListTile>
         ))}
       </GridList>
