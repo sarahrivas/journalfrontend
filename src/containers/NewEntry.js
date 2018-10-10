@@ -44,20 +44,6 @@ class NewEntry extends Component {
     data.append("image", this.state.image);
     data.append("user_id", this.props.user.id);
 
-    // const postConfig = {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     entry: {
-    //       title: this.state.title,
-    //       content: this.state.content,
-    //       user_id: this.props.user.id
-    //     }
-    //   }),
-    //   headers: {
-    //     'Content-type': 'application/json',
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`
-    //   }
-    // }
     fetch('http://localhost:3000/api/v1/entries', {
       method: 'POST',
       headers: {

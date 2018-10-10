@@ -150,7 +150,7 @@ class SingleView extends Component {
         />
         <CardContent>
         <Typography component="p">
-          <img src="https://pioneerwoman.files.wordpress.com/2016/03/dsc_1187.jpg?w=780&h=519" />
+          <img src="{this.props.currentEntry.image}" />
         </Typography>
 
         </CardContent>
