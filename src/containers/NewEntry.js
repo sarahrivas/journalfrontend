@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 
-
+// Material-UI theme object for styling
 const styles = theme => ({
   contentArea: {
     'margin-bottom': '12px'
@@ -29,6 +29,7 @@ const styles = theme => ({
 
 class NewEntry extends Component {
 
+// state includes title, content, image and imageURL which will be updated via the form
   state = {
     title: '',
     content: '',
@@ -36,6 +37,7 @@ class NewEntry extends Component {
     imageURL: null
   }
 
+//submission handler for the form
   handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData();
@@ -63,12 +65,14 @@ class NewEntry extends Component {
     }, this.setState({imageURL: data.url}))
   }
 
+//handles changes to controlled input fields
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
+//handles the picture file upload 
   handleFileUpload = event => {
     this.setState({
       image: event.target.files[0]
