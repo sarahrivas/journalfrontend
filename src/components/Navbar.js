@@ -85,12 +85,6 @@ const styles = theme => ({
       display: 'flex',
     },
   },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
 });
 
 const Navbar = (props) => {
