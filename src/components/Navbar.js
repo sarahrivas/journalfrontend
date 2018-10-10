@@ -78,13 +78,7 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: 200,
     },
-  },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
+  }
 });
 
 const Navbar = (props) => {
